@@ -1,0 +1,6 @@
+# udev rule for Logitech MX Master 4 Bluetooth / USB interface
+# Grants unprivileged user access to the hidraw interface for haptic engine feedback.
+
+# Bluetooth Low Energy / HID++
+KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="b042", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="hidraw", ATTRS{name}=="*MX Master 4*", MODE="0660", GROUP="plugdev", TAG+="uaccess"

@@ -1,0 +1,34 @@
+# Logitech MX Master 4 Configuration File
+# Save a copy as ~/.config/mx4/config.ini or pass path via --config
+
+[daemon]
+# Debounce time in seconds between consecutive triggers
+debounce_sec = 0.40
+
+# Disable extra X11 mouse buttons (10, 11) for MX Master pointer.
+# Prevents desktop environments (Cinnamon, GNOME, etc.) from intercepting
+# gesture clicks as native window manager shortcuts.
+disable_x11_extra_buttons = true
+
+[haptic]
+# Waveform preset for haptic feedback:
+# 1 = Sharp Tick
+# 2 = Subtle Click (Recommended)
+# 3..14 = Distinct pulsed & double-click patterns
+# 0 = Disabled
+default_waveform = 2
+
+[wing_panel]
+# Code 0x01A0: Bottom thumb rest pad with pressure sensor and haptic motor
+# Built-in actions:
+#   toggle_desktop   - Minimizes/restores all windows via wmctrl
+#   none             - Do nothing
+# Or enter any custom shell command (e.g. rofi -show drun, playerctl play-pause)
+action = toggle_desktop
+haptic_waveform = 2
+
+[gesture_button]
+# Code 0x00C3: Physical button situated right above the thumb rest pad
+# Action command:
+action = /usr/local/bin/mx4-screenshot-menu
+haptic_waveform = 0

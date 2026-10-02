@@ -1,0 +1,15 @@
+[Unit]
+Description=Logitech MX Master 4 Haptic & Gesture Daemon
+Documentation=https://github.com/vivajarvis777-dev/logitech-mx-master-4-linux
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/mx4-daemon
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=graphical-session.target

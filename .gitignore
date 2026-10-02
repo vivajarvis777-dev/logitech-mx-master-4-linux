@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Logs & temp
+*.log
+*.tmp
+.DS_Store
+
+# User configs
+config.ini

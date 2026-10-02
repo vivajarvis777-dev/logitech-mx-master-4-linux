@@ -1,6 +1,6 @@
 # Logitech MX Master 4 on Linux
 
-Comprehensive driver and daemon for the **Logitech MX Master 4** on Linux (Bluetooth Low Energy & Bolt), featuring native **Haptic Feedback (HID++ 0x19B0)**, programmable thumb controls, gesture management, and resolved Bluetooth/Wi-Fi coexistence issues.
+Comprehensive driver and daemon for the **Logitech MX Master 4** on Linux (Bluetooth Low Energy & Bolt), featuring native **Haptic Feedback (HID++ 0x19B0)**, programmable thumb controls, gesture management, and clean desktop integration.
 
 ---
 
@@ -9,7 +9,6 @@ Comprehensive driver and daemon for the **Logitech MX Master 4** on Linux (Bluet
 - **Haptic Engine Support (`0x19B0`):** Full hardware vibration support on the thumb rest pad (sharp ticks, subtle confirmation clicks, custom waveforms).
 - **Dual Thumb Controls Separation:** Distinguishes between the bottom rubber thumb rest (`0x01A0`) and the upper gesture button (`0x00C3`).
 - **X11 / Wayland Friendly:** Prevents desktop environment conflicts (e.g. Cinnamon/GNOME treating extra mouse buttons as window minimize actions) via direct raw HID++ interception and pointer button isolation.
-- **Wi-Fi & Bluetooth Coexistence Guide:** Practical hardware and network fixes for 2.4 GHz interference issues.
 - **Lightweight Systemd Service:** Native `systemd --user` background daemon with auto-reconnection and minimal resource usage (pure Python 3, zero heavy external dependencies).
 
 ---
@@ -78,24 +77,11 @@ Trigger packet format (HID++ Long Report `0x11`):
 
 ## System Fixes & Troubleshooting
 
-### 1. Bluetooth 2.4 GHz & Wi-Fi Interference
-**Symptom:** Wi-Fi speed drops drastically (from 300+ Mbps down to 0.5–2 Mbps) whenever the mouse is moving.  
-**Cause:** The 2.4 GHz Bluetooth carrier overlaps with 2.4 GHz Wi-Fi channels (especially Wi-Fi Channel 9 / 2452 MHz).  
-**Solution:** Lock your Linux machine's Wi-Fi connection to the 5 GHz band (e.g. Channel 48, 5240 MHz):
-```bash
-# Identify your 5 GHz BSSID:
-nmcli dev wifi list
-
-# Lock your connection to the 5 GHz BSSID:
-nmcli con modify "<Connection-Name>" 802-11-wireless.bssid <5GHz-BSSID>
-nmcli con up "<Connection-Name>"
-```
-
-### 2. X11 Duplicate Window Minimize Actions
+### 1. X11 Duplicate Window Minimize Actions
 **Symptom:** Pressing the upper gesture button causes window manager gestures in Cinnamon/GNOME.  
 **Solution:** The daemon automatically masks pointer buttons 10 and 11 via `xinput set-button-map`, routing events cleanly through raw HID++ reports without X11 desktop interference.
 
-### 3. Solaar Keyboard Layout Divert Bug
+### 2. Solaar Keyboard Layout Divert Bug
 **Symptom:** Emulated keystrokes fail when non-Latin keyboard layouts (e.g., Ukrainian) are active.  
 **Solution:** Handled out-of-band by `mx4-daemon` using direct IPC / system commands instead of simulated X11 key presses.
 
